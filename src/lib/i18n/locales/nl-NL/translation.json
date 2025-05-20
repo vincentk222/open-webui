@@ -651,6 +651,7 @@
 	"Not helpful": "Niet nuttig",
 	"Note: If you set a minimum score, the search will only return documents with a score greater than or equal to the minimum score.": "Opmerking: Als je een minimumscore instelt, levert de zoekopdracht alleen documenten op met een score groter dan of gelijk aan de minimumscore.",
 	"Notes": "Aantekeningen",
+        "Browser": "",
 	"Notification Sound": "",
 	"Notification Webhook": "",
 	"Notifications": "Notificaties",

@@ -651,6 +651,7 @@
 	"Not helpful": "",
 	"Note: If you set a minimum score, the search will only return documents with a score greater than or equal to the minimum score.": "შენიშვნა: თუ თქვენ დააყენებთ მინიმალურ ქულას, ძებნა დააბრუნებს მხოლოდ დოკუმენტებს მინიმალური ქულის მეტი ან ტოლი ქულით.",
 	"Notes": "",
+        "Browser": "",
 	"Notification Sound": "",
 	"Notification Webhook": "",
 	"Notifications": "შეტყობინება",

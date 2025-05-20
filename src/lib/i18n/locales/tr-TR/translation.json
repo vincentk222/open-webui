@@ -651,6 +651,7 @@
 	"Not helpful": "Yardımcı olmadı",
 	"Note: If you set a minimum score, the search will only return documents with a score greater than or equal to the minimum score.": "Not: Minimum bir skor belirlerseniz, arama yalnızca minimum skora eşit veya daha yüksek bir skora sahip belgeleri getirecektir.",
 	"Notes": "Notlar",
+        "Browser": "",
 	"Notification Sound": "Bildirim Sesi",
 	"Notification Webhook": "Bildirim Webhook'u",
 	"Notifications": "Bildirimler",

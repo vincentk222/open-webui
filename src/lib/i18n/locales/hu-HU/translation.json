@@ -651,6 +651,7 @@
 	"Not helpful": "Nem segítőkész",
 	"Note: If you set a minimum score, the search will only return documents with a score greater than or equal to the minimum score.": "Megjegyzés: Ha minimum pontszámot állít be, a keresés csak olyan dokumentumokat ad vissza, amelyek pontszáma nagyobb vagy egyenlő a minimum pontszámmal.",
 	"Notes": "Jegyzetek",
+        "Browser": "",
 	"Notification Sound": "",
 	"Notification Webhook": "",
 	"Notifications": "Értesítések",

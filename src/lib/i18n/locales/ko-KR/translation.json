@@ -651,6 +651,7 @@
 	"Not helpful": "도움이 되지않음",
 	"Note: If you set a minimum score, the search will only return documents with a score greater than or equal to the minimum score.": "참고: 최소 점수를 설정하면, 검색 결과로 최소 점수 이상의 점수를 가진 문서만 반환합니다.",
 	"Notes": "노트",
+        "Browser": "",
 	"Notification Sound": "알림 소리",
 	"Notification Webhook": "알림 웹훅",
 	"Notifications": "알림",
