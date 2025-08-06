@@ -3,8 +3,9 @@
 	import { slide } from 'svelte/transition';
 	import { Pane, PaneResizer } from 'paneforge';
 
-	import { onDestroy, onMount, tick } from 'svelte';
-	import { mobile, showControls, showCallOverlay, showOverview, showArtifacts } from '$lib/stores';
+        import { onDestroy, onMount, tick } from 'svelte';
+        import { mobile, showControls, showCallOverlay, showOverview, showArtifacts } from '$lib/stores';
+        import { createEventDispatcher } from 'svelte';
 
 	import Modal from '../common/Modal.svelte';
 	import Controls from './Controls/Controls.svelte';
@@ -23,20 +24,23 @@
 	export let chatFiles = [];
 	export let params = {};
 
-	export let eventTarget: EventTarget;
-	export let submitPrompt: Function;
-	export let stopResponse: Function;
-	export let showMessage: Function;
-	export let files;
-	export let modelId;
+        export let eventTarget: EventTarget;
+        export let submitPrompt: Function;
+        export let stopResponse: Function;
+        export let showMessage: Function;
+        export let files;
+        export let modelId;
 
-	export let pane;
+        export let pane;
+        export let selectedFile = null;
+
+        const dispatch = createEventDispatcher();
 
 	let mediaQuery;
 	let largeScreen = false;
 	let dragged = false;
 
-	let minSize = 0;
+        let minSize = 25;
 
 	export const openPane = () => {
 		if (parseInt(localStorage?.chatControlsSize)) {
@@ -178,14 +182,18 @@
 							}}
 						/>
 					{:else}
-						<Controls
-							on:close={() => {
-								showControls.set(false);
-							}}
-							{models}
-							bind:chatFiles
-							bind:params
-						/>
+                                                <Controls
+                                                        on:close={() => {
+                                                                showControls.set(false);
+                                                        }}
+                                                        {models}
+                                                        bind:chatFiles
+                                                        bind:params
+                                                        on:fileselect={(e) => {
+                                                                selectedFile = e.detail;
+                                                                dispatch('fileselect', selectedFile);
+                                                        }}
+                                                />
 					{/if}
 				</div>
 			</Drawer>
@@ -201,10 +209,10 @@
 			</PaneResizer>
 		{/if}
 
-		<Pane
-			bind:pane
-			defaultSize={0}
-			onResize={(size) => {
+                <Pane
+                        bind:pane
+                        defaultSize={25}
+                        onResize={(size) => {
 				console.log('size', size, minSize);
 
 				if ($showControls && pane.isExpanded()) {
@@ -265,18 +273,22 @@
 								}}
 							/>
 						{:else}
-							<Controls
-								on:close={() => {
-									showControls.set(false);
-								}}
-								{models}
-								bind:chatFiles
-								bind:params
-							/>
-						{/if}
-					</div>
-				</div>
-			{/if}
-		</Pane>
+                                                        <Controls
+                                                                on:close={() => {
+                                                                        showControls.set(false);
+                                                                }}
+                                                                {models}
+                                                                bind:chatFiles
+                                                                bind:params
+                                                                on:fileselect={(e) => {
+                                                                        selectedFile = e.detail;
+                                                                        dispatch('fileselect', selectedFile);
+                                                                }}
+                                                        />
+                                                {/if}
+                                        </div>
+                                </div>
+                        {/if}
+                </Pane>
 	{/if}
 </SvelteFlowProvider>

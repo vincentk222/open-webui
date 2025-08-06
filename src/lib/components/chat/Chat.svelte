@@ -82,8 +82,9 @@
 	import Banner from '../common/Banner.svelte';
 	import MessageInput from '$lib/components/chat/MessageInput.svelte';
 	import Messages from '$lib/components/chat/Messages.svelte';
-	import Navbar from '$lib/components/chat/Navbar.svelte';
-	import ChatControls from './ChatControls.svelte';
+        import Navbar from '$lib/components/chat/Navbar.svelte';
+        import ChatControls from './ChatControls.svelte';
+        import PDFViewer from './PDFViewer.svelte';
 	import EventConfirmDialog from '../common/ConfirmDialog.svelte';
 	import Placeholder from './Placeholder.svelte';
 	import NotificationToast from '../NotificationToast.svelte';
@@ -136,9 +137,10 @@
 
 	// Chat Input
 	let prompt = '';
-	let chatFiles = [];
-	let files = [];
-	let params = {};
+        let chatFiles = [];
+        let files = [];
+        let params = {};
+        let selectedFile = null;
 
 	$: if (chatIdProp) {
 		(async () => {
@@ -416,8 +418,9 @@
 		}
 	};
 
-	onMount(async () => {
-		loading = true;
+        onMount(async () => {
+                showControls.set(true);
+                loading = true;
 		console.log('mounted');
 		window.addEventListener('message', onMessageHandler);
 		$socket?.on('chat-events', chatEventHandler);
@@ -2024,8 +2027,8 @@
 			/>
 		{/if}
 
-		<PaneGroup direction="horizontal" class="w-full h-full">
-			<Pane defaultSize={50} class="h-full flex relative max-w-full flex-col">
+                <PaneGroup direction="horizontal" class="w-full h-full">
+                        <Pane defaultSize={25} class="h-full flex relative max-w-full flex-col">
 				<Navbar
 					bind:this={navbarElement}
 					chat={{
@@ -2177,30 +2180,35 @@
 						</div>
 					{/if}
 				</div>
-			</Pane>
+                        </Pane>
+                        <PaneResizer class="w-2 bg-background" />
+                        <Pane defaultSize={50} class="h-full flex">
+                                <PDFViewer file={selectedFile} />
+                        </Pane>
 
-			<ChatControls
-				bind:this={controlPaneComponent}
-				bind:history
-				bind:chatFiles
-				bind:params
-				bind:files
-				bind:pane={controlPane}
-				chatId={$chatId}
-				modelId={selectedModelIds?.at(0) ?? null}
-				models={selectedModelIds.reduce((a, e, i, arr) => {
-					const model = $models.find((m) => m.id === e);
-					if (model) {
-						return [...a, model];
-					}
-					return a;
-				}, [])}
-				{submitPrompt}
-				{stopResponse}
-				{showMessage}
-				{eventTarget}
-			/>
-		</PaneGroup>
+                        <ChatControls
+                                bind:this={controlPaneComponent}
+                                bind:history
+                                bind:chatFiles
+                                bind:params
+                                bind:files
+                                bind:pane={controlPane}
+                                bind:selectedFile
+                                chatId={$chatId}
+                                modelId={selectedModelIds?.at(0) ?? null}
+                                models={selectedModelIds.reduce((a, e, i, arr) => {
+                                        const model = $models.find((m) => m.id === e);
+                                        if (model) {
+                                                return [...a, model];
+                                        }
+                                        return a;
+                                }, [])}
+                                {submitPrompt}
+                                {stopResponse}
+                                {showMessage}
+                                {eventTarget}
+                        />
+                </PaneGroup>
 	{:else if loading}
 		<div class=" flex items-center justify-center h-full w-full">
 			<div class="m-auto">

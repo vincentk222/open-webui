@@ -43,20 +43,20 @@
 							name={file.name}
 							type={file.type}
 							size={file?.size}
-							dismissible={true}
-							on:dismiss={() => {
-								// Remove the file from the chatFiles array
+                                                        dismissible={true}
+                                                        on:dismiss={() => {
+                                                                // Remove the file from the chatFiles array
 
-								chatFiles.splice(fileIdx, 1);
-								chatFiles = chatFiles;
-							}}
-							on:click={() => {
-								console.log(file);
-							}}
-						/>
-					{/each}
-				</div>
-			</Collapsible>
+                                                                chatFiles.splice(fileIdx, 1);
+                                                                chatFiles = chatFiles;
+                                                        }}
+                                                        on:click={() => {
+                                                                dispatch('fileselect', file);
+                                                        }}
+                                                />
+                                        {/each}
+                                </div>
+                        </Collapsible>
 
 			<hr class="my-2 border-gray-50 dark:border-gray-700/10" />
 		{/if}
