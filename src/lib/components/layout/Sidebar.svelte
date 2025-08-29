@@ -54,11 +54,12 @@
 	import Tooltip from '../common/Tooltip.svelte';
 	import Folders from './Sidebar/Folders.svelte';
 	import { getChannels, createNewChannel } from '$lib/apis/channels';
-	import ChannelModal from './Sidebar/ChannelModal.svelte';
-	import ChannelItem from './Sidebar/ChannelItem.svelte';
-	import PencilSquare from '../icons/PencilSquare.svelte';
-	import Home from '../icons/Home.svelte';
-	import MagnifyingGlass from '../icons/MagnifyingGlass.svelte';
+        import ChannelModal from './Sidebar/ChannelModal.svelte';
+        import ChannelItem from './Sidebar/ChannelItem.svelte';
+        import PencilSquare from '../icons/PencilSquare.svelte';
+        import Home from '../icons/Home.svelte';
+        import GlobeAlt from '../icons/GlobeAlt.svelte';
+        import MagnifyingGlass from '../icons/MagnifyingGlass.svelte';
 	import SearchModal from './SearchModal.svelte';
 
 	const BREAKPOINT = 768;
@@ -585,9 +586,33 @@
 					</div>
 				</a>
 			</div>
-		{/if}
+                {/if}
 
-		{#if $user?.role === 'admin' || $user?.permissions?.workspace?.models || $user?.permissions?.workspace?.knowledge || $user?.permissions?.workspace?.prompts || $user?.permissions?.workspace?.tools}
+                <div class="px-1.5 flex justify-center text-gray-800 dark:text-gray-200">
+                        <a
+                                class="grow flex items-center space-x-3 rounded-lg px-2 py-[7px] hover:bg-gray-100 dark:hover:bg-gray-900 transition"
+                                href="/browser"
+                                on:click={() => {
+                                        selectedChatId = null;
+                                        chatId.set('');
+
+                                        if ($mobile) {
+                                                showSidebar.set(false);
+                                        }
+                                }}
+                                draggable="false"
+                        >
+                                <div class="self-center">
+                                        <GlobeAlt className="size-4" strokeWidth="2" />
+                                </div>
+
+                                <div class="flex self-center translate-y-[0.5px]">
+                                        <div class=" self-center font-medium text-sm font-primary">{$i18n.t('Browser')}</div>
+                                </div>
+                        </a>
+                </div>
+
+                {#if $user?.role === 'admin' || $user?.permissions?.workspace?.models || $user?.permissions?.workspace?.knowledge || $user?.permissions?.workspace?.prompts || $user?.permissions?.workspace?.tools}
 			<div class="px-1.5 flex justify-center text-gray-800 dark:text-gray-200">
 				<a
 					class="grow flex items-center space-x-3 rounded-lg px-2 py-[7px] hover:bg-gray-100 dark:hover:bg-gray-900 transition"
